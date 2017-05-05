@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="$!{packagePrefix}$!{daoPackage}.$!{pascalName}Dao">
+
+    <insert id="add" parameterType="$!{packagePrefix}$!{domainPackage}.$!{pascalName}VO"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO $!{tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #foreach( $var in $fieldList )
+            <if test="$var.get("camelName") != null">
+                $var.get("colName"),
+            </if>
+            #end
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #foreach( $var in $fieldList )
+            <if test="$var.get("camelName") != null">
+                #{$var.get("camelName"),jdbcType=$var.get("mapperType")},
+            </if>
+            #end
+        </trim>
+    </insert>
+
+    #set($isDelete=0)
+    #foreach( $var in $fieldList )
+        #if($var.get("colName") == "is_delete" && $!{isDelete} == 0)
+            #set($isDelete= $isDelete + 1)
+    <update id="delete">
+        UPDATE $!{tableName}
+        SET
+            is_delete = 1
+        WHERE
+            id IN (#{ids,jdbcType=VARCHAR})
+    </update>
+        #end
+    #end
+    #if($!{isDelete} == 0)
+    <delete id="delete">
+        DELETE FROM $!{tableName}
+        WHERE id IN (#{ids,jdbcType=VARCHAR})
+    </delete>
+    #end
+
+    <update id="update" parameterType="$!{packagePrefix}$!{domainPackage}.$!{pascalName}VO">
+        UPDATE $!{tableName}
+        <set>
+            #foreach( $var in $fieldList )
+                <if test="$var.get("camelName") != null">
+                    $var.get("colName") = #{$var.get("camelName"),jdbcType=$var.get("mapperType")},
+                </if>
+            #end
+        </set>
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="get" resultType="$!{packagePrefix}$!{domainPackage}.$!{pascalName}VO">
+        SELECT
+        #foreach($var in $fieldList)
+            $var.get("colName")#if($velocityCount != $fieldList.size()),#end
+        #end
+        FROM $!{tableName}
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="query" resultType="$!{packagePrefix}$!{domainPackage}.$!{pascalName}VO"
+            parameterType="$!{packagePrefix}$!{conditionPackage}.$!{pascalName}Condition">
+        SELECT
+        #foreach($var in $fieldList)
+            $var.get("colName")#if($velocityCount != $fieldList.size()),#end
+        #end
+        FROM $!{tableName}
+        WHERE
+            1 = 1
+            #foreach($var in $fieldList)
+            <if test="$var.get("camelName") != null">
+                AND $var.get("colName") = #{$var.get("camelName"),jdbcType=$var.get("mapperType")}
+            </if>
+            #end
+            <if test="keyword != null">
+                AND
+                (
+                id LIKE "%"#{id,jdbcType=VARCHAR}"%"
+                )
+            </if>
+    </select>
+
+    <select id="queryExist" resultType="boolean" parameterType="$!{packagePrefix}$!{domainPackage}.$!{pascalName}VO">
+        SELECT
+            CASE COUNT(1)
+            WHEN 0 THEN 0
+            ELSE 1
+            END
+        FROM $!{tableName}
+        WHERE
+        1 = 1
+        #foreach($var in $fieldList)
+            <if test="$var.get("camelName") != null">
+                AND $var.get("colName") = #{$var.get("camelName"),jdbcType=$var.get("mapperType")}
+            </if>
+        #end
+    </select>
+
+</mapper>

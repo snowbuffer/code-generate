@@ -1,0 +1,39 @@
+package $!{packagePrefix}$!{domainPackage};
+
+import java.io.Serializable;
+#set($decimalcount=0)
+#set($datetimecount=0)
+#foreach($var in $fieldList)
+#if($var.get("type") == "BigDecimal" && $!{decimalcount} == 0)
+#set($decimalcount= $decimalcount + 1)
+import java.math.BigDecimal;
+#end
+#end
+#foreach($var in $fieldList)
+#if(($var.get("type") == "Timestamp" || $var.get("type") == "Date") && $!{datetimecount} == 0)
+#set($datetimecount= $datetimecount + 1)
+import java.sql.Timestamp;
+#end
+#end
+
+/**
+ * @date $!{nowDate}
+ */
+public class $!{pascalName}VO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+    #foreach($var in $fieldList)
+    private $var.get("type") $var.get("camelName");
+	#end
+    
+    #foreach($var in $fieldList)
+    public $var.get("type") get$var.get("pascalName")() {
+        return $var.get("camelName");
+    }
+    public void set$var.get("pascalName")($var.get("type") $var.get("camelName")) {
+        this.$var.get("camelName") = $var.get("camelName");
+    }
+    #end
+    
+}

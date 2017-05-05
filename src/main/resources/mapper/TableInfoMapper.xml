@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cipher.seed.dao.TableInfoDao">
+
+    <select id="selectTableInfo" resultType="com.cipher.seed.domain.TableInfo">
+        SELECT 
+        	column_name AS colName,
+        	column_comment AS colComment,
+        	data_type AS colType
+        FROM Information_schema.columns
+        WHERE
+        	table_schema = #{tableSchema} 
+        	AND table_Name = #{tableName}
+    </select>
+
+</mapper>

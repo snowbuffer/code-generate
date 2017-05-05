@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="FILE_PATH">log</Property>
+        <Property name="APP_NAME">seed</Property>
+        <Property name="LOG_PATTERN">[%p][%d{yyyy-MM-dd HH:mm:ss}][%C{1}:%M] %m%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+        <!--<RollingFile name="RollingFile" fileName="${FILE_PATH}/${APP_NAME}.log"
+            filePattern="${FILE_PATH}/${APP_NAME}_${date:yyyy-MM}/${APP_NAME}_%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+        </RollingFile>-->
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <!--<AppenderRef ref="RollingFile"/> -->
+        </Root>
+    </Loggers>
+</Configuration>

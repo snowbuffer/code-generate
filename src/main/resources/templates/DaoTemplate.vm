@@ -1,0 +1,25 @@
+package $!{packagePrefix}$!{daoPackage};
+
+import $!{packagePrefix}$!{domainPackage}.$!{pascalName}VO;
+import $!{packagePrefix}$!{conditionPackage}.$!{pascalName}Condition;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface $!{pascalName}Dao {
+
+    int add($!{pascalName}VO vo);
+
+    int delete(@Param("ids") String ids);
+
+    int update($!{pascalName}VO vo);
+
+    $!{pascalName}VO get(@Param("id") Long id);
+
+    List<$!{pascalName}VO> query($!{pascalName}Condition condition);
+
+    boolean queryExist($!{pascalName} vo);
+
+}

@@ -3,6 +3,7 @@ package com.cipher.seed;
 import com.cipher.seed.service.TemplateService;
 import com.cipher.seed.util.BeanTool;
 import com.google.common.collect.Lists;
+import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
@@ -32,5 +33,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
         } else {
             service.merge(type);
         }
+        EmbeddedWebApplicationContext context = (EmbeddedWebApplicationContext)BeanTool.getAppContext();
+        context.getEmbeddedServletContainer().stop();
     }
 }

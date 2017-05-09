@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <!-- 字符编码 -->
+        <!-- 字符 编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- mybatis版本号 -->
         <mybatis.version>3.2.7</mybatis.version>

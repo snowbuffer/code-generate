@@ -112,6 +112,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.3.2.RELEASE</version>
                 <!-- 没有集成spring-boot的parent，必须如下配置 -->
                 <executions>
                     <execution>

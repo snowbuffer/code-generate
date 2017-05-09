@@ -23,7 +23,7 @@ public class PropertyUtil {
     private String packagePrefix;
     @Value("${tables}")
     private String tableStr;
-    @Value("${path}")
+    @Value("${out_path}")
     private String path;
 
     // -==================================================

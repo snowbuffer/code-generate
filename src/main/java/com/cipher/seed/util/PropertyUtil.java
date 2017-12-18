@@ -23,7 +23,7 @@ public class PropertyUtil {
     private String packagePrefix;
     @Value("${tables}")
     private String tableStr;
-    @Value("${path}")
+    @Value("${out_path}")
     private String path;
 
     // -==================================================
@@ -154,7 +154,7 @@ public class PropertyUtil {
         return list;
     }
 
-    // -====================== 私有方法 ====================
+    // -====================== 私有方法 ========================
 
     // 获取当前时间
     private String getNow() {

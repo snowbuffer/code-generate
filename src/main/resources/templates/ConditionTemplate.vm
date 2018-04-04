@@ -1,11 +1,12 @@
 package $!{packagePrefix}$!{conditionPackage};
 
 import java.io.Serializable;
+import $!{packagePrefix}$!{domainPackage}.$!{pascalName}PO
 
 /**
  * @date $!{nowDate}
  */
-public class $!{pascalName}Condition extend $!{pascalName}VO implements Serializable {
+public class $!{pascalName}Condition extend $!{pascalName}PO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

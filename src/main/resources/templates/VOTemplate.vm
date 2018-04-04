@@ -1,6 +1,10 @@
 package $!{packagePrefix}$!{domainPackage};
 
 import java.io.Serializable;
+import javax.persistence.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 #set($decimalcount=0)
 #set($datetimecount=0)
 #foreach($var in $fieldList)
@@ -19,12 +23,19 @@ import java.sql.Timestamp;
 /**
  * @date $!{nowDate}
  */
-public class $!{pascalName}VO implements Serializable {
+@Table(name = "$!{tableName}")
+public class $!{pascalName}PO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+    @GeneratedValue(generator = "JDBC")
+    private Long id;
+
     #foreach($var in $fieldList)
+    #if($var.get("camelName") != "id")
     private $var.get("type") $var.get("camelName");
+    #end
 	#end
     
     #foreach($var in $fieldList)

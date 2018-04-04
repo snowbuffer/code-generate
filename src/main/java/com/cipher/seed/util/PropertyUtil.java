@@ -25,6 +25,10 @@ public class PropertyUtil {
     private String tableStr;
     @Value("${out_path}")
     private String path;
+    @Value("${domain.package.prefix}")
+    private String domainPrefix;
+    @Value("${condition.package.prefix}")
+    private String conditionPrefix;
 
     // -==================================================
 
@@ -122,8 +126,8 @@ public class PropertyUtil {
                 break;
         }
         String path = this.path + File.separator + "code" + File.separator + type;
-        model.put("domainPackage", ".domain.vo");
-        model.put("conditionPackage", ".domain.condition");
+        model.put("domainPackage", domainPrefix);
+        model.put("conditionPackage", conditionPrefix);
         model.put("daoPackage", ".dao");
         model.put("path", path);
         model.put("templateName", templateName);

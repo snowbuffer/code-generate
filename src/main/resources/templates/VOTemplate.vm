@@ -2,7 +2,9 @@ package $!{packagePrefix}$!{domainPackage};
 
 import java.io.Serializable;
 import javax.persistence.Id;
-
+import com.tupperware.pos.domain.common.Base;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 #set($decimalcount=0)
@@ -24,16 +26,19 @@ import java.sql.Timestamp;
  * @date $!{nowDate}
  */
 @Table(name = "$!{tableName}")
-public class $!{pascalName}PO implements Serializable {
+@ApiModel(value = "$!{pascalName}PO", description = "xxx")
+public class $!{pascalName}PO extends Base {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
     @GeneratedValue(generator = "JDBC")
+    @ApiModelProperty("主键")
     private Long id;
 
     #foreach($var in $fieldList)
     #if($var.get("camelName") != "id")
+    @ApiModelProperty("$var.get("comment")")
     private $var.get("type") $var.get("camelName");
     #end
 	#end

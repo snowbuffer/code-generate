@@ -108,7 +108,7 @@ public class PropertyUtil {
         switch (type.toLowerCase()) {
             case "domain":
                 templateName = "VOTemplate.vm";
-                suffix = "VO.java";
+                suffix = "PO.java";
                 break;
             case "condition":
                 templateName = "ConditionTemplate.vm";
@@ -153,6 +153,7 @@ public class PropertyUtil {
             map.put("pascalName", pascalName);
             map.put("type", type);
             map.put("mapperType", mapperType);
+            map.put("comment", t.getColComment());
             list.add(map);
         }
         return list;
